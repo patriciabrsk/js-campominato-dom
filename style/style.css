@@ -33,3 +33,8 @@ div#grid .grid-square:hover {
 div#grid .grid-square.clicked {
     background-color: #6495ec;
 }
+
+div#grid .grid-square.clicked-bomb {
+    background-color: #860000;
+    color: white;
+}

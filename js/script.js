@@ -45,13 +45,23 @@ function createNewGrid() {
 
     squaresPerRow = Math.sqrt(squaresNum);
 
+    // Create random bombs list
+    const bombs = createBombsList(16, squaresNum);
+    console.log(bombs);
+
     for ( let i = 1; i <= squaresNum; i++){
         const square = createSquare(i, squaresPerRow);
+
         square.addEventListener('click', function(){
-            this.classList.toggle('clicked');
+            if (!bombs.includes(i)) {
+                this.classList.toggle('clicked');
+            } else {
+                this.classList.toggle('clicked-bomb');
+            }
         });
         grid.appendChild(square);
     }
+
 }
 
 function createSquare(max, squaresPerRow) {
@@ -70,23 +80,24 @@ function createSquare(max, squaresPerRow) {
         return square;
 }
 
-// function createBombs(bombs, max) {
-//     const bombList = [];
-//     for (let i = 0; i < bombs; i++) {
-//         bombList.push(randomUniqueInt(bombList, 1, max));
-//     }
-// }
+function createBombsList(bombs, nSquares) {
+    const bombsList = [];
+    for (let i = 0; i < bombs; i++) {
+        bombsList.push(randomUniqueInt(bombsList, 1, nSquares));
+    }
+    return bombsList;
+}
 
-// function randomUniqueInt(numsBlackList, minNum, maxNum) {
-//     let check = false;
-//     let randomInt;
+function randomUniqueInt(numsBlackList, minNum, maxNum) {
+    let check = false;
+    let randomInt;
 
-//     while(!check) {
-//         randomInt = Math.floor(Math.random())
-//         if(!numsBlackList.includes(randomInt)) {
-//             check = true;
-//         }
-//     }
-//     return randomInt;
-// }
+    while(!check) {
+        randomInt = Math.floor(Math.random() * ((maxNum * 1) - minNum) * minNum);
+        if(!numsBlackList.includes(randomInt)) {
+            check = true;
+        }
+    }
+    return randomInt;
+}
 
