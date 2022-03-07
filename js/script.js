@@ -16,13 +16,17 @@
  */
 
 const grid = document.getElementById('grid');
-
 const playBtn = document.getElementById('play');
+
+// Event listener for the play button click
 playBtn.addEventListener('click', function () {
     createNewGrid();
     printToDom('points', '');
 });
 
+/**
+ * This function is called when a new grid is created, according to the current level selected
+ */
 function createNewGrid() {
     grid.innerHTML = ''; 
 
@@ -55,7 +59,7 @@ function createNewGrid() {
     for ( let i = 1; i <= squaresNum; i++){
         const square = createSquare(i, squaresPerRow);
 
-        square.addEventListener('click', function(){
+        square.addEventListener('click', function(event){
             if (!bombs.includes(i)) {
                 this.classList.add('clicked');
                 points++;
@@ -63,12 +67,19 @@ function createNewGrid() {
             } else {
                 this.classList.add('clicked-bomb');
                 printToDom('points', `&#10060; Try again! Your score is: ${points}`);
+                event.preventDefault();
             }
         });
         grid.appendChild(square);
     }
 }
 
+/**
+ * Function creates each single square element to the DOM
+ * @param {*} max - Max number of square elements to print
+ * @param {*} squaresPerRow - Number of squares per row
+ * @returns 
+ */
 function createSquare(max, squaresPerRow) {
     let square = document.createElement('div');
     square.classList.add(
@@ -85,6 +96,12 @@ function createSquare(max, squaresPerRow) {
         return square;
 }
 
+/**
+ * Function is called to create a new bomb list in the grid
+ * @param {*} bombs - Number of bombs to generate in the grid
+ * @param {*} nSquares - Number of squares in the grid
+ * @returns 
+ */
 function createBombsList(bombs, nSquares) {
     const bombsList = [];
     for (let i = 0; i < bombs; i++) {
@@ -93,6 +110,14 @@ function createBombsList(bombs, nSquares) {
     return bombsList;
 }
 
+/**
+ * This function is used to generate new random unique integers 
+ * in the grid each time it is called and collect them into a list
+ * @param {*} numsBlackList - An array list of unique random integers
+ * @param {*} minNum - A maximum number of random integers
+ * @param {*} maxNum - A minimum number of random integers
+ * @returns 
+ */
 function randomUniqueInt(numsBlackList, minNum, maxNum) {
     let check = false;
     let randomInt;
@@ -107,6 +132,11 @@ function randomUniqueInt(numsBlackList, minNum, maxNum) {
 }
 
 // Print to DOM element (selected by Id) and replacing it with a new string each time
+/**
+ * Function that prints out a string to the respective DOM element, selected by Id.
+ * @param {*} elementId - DOM element to select from DOM by id
+ * @param {*} str - String to print to DOM element
+ */
 function printToDom(elementId, str) {
     document.getElementById(elementId).innerHTML = str; 
 }
