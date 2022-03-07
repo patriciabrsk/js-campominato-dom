@@ -30,6 +30,8 @@ function createNewGrid() {
     let squaresPerRow;
     let squaresNum;
 
+    let points = 0;
+
     switch (gameSelection) {
         case "easy":
         default:
@@ -54,9 +56,12 @@ function createNewGrid() {
 
         square.addEventListener('click', function(){
             if (!bombs.includes(i)) {
-                this.classList.toggle('clicked');
+                this.classList.add('clicked');
+                points++;
+                printToDom('points', `Your score is: ${points}`);
             } else {
-                this.classList.toggle('clicked-bomb');
+                this.classList.add('clicked-bomb');
+                printToDom('points', `&#10060; Try again! Your score is: ${points}`);
             }
         });
         grid.appendChild(square);
@@ -99,5 +104,10 @@ function randomUniqueInt(numsBlackList, minNum, maxNum) {
         }
     }
     return randomInt;
+}
+
+// Print to DOM element (selected by Id) and replacing it with a new string each time
+function printToDom(elementId, str) {
+    document.getElementById(elementId).innerHTML = str; 
 }
 
