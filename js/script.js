@@ -20,6 +20,7 @@ const grid = document.getElementById('grid');
 const playBtn = document.getElementById('play');
 playBtn.addEventListener('click', function () {
     createNewGrid();
+    printToDom('points', '');
 });
 
 function createNewGrid() {
@@ -66,7 +67,6 @@ function createNewGrid() {
         });
         grid.appendChild(square);
     }
-
 }
 
 function createSquare(max, squaresPerRow) {

@@ -18,6 +18,7 @@ select .form-select {
 div#grid {
     width: 60vh;
     height: 60vh;
+    margin-top: 50px;
 }
 
 div#grid .grid-square {
@@ -36,5 +37,10 @@ div#grid .grid-square.clicked {
 
 div#grid .grid-square.clicked-bomb {
     background-color: #860000;
+    color: white;
+}
+
+div#points {
+    background-color: black;
     color: white;
 }
