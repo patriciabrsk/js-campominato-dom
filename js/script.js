@@ -70,6 +70,7 @@ function createNewGrid() {
                 } else {
                     this.classList.add('clicked-bomb');
                     printToDom('points', `&#10060; Try again! Your score is: ${points}`);
+                    lookForBombs('grid', bombs, 'clicked-bomb');
                     isGameOver = true;
                 }
             }
@@ -95,7 +96,7 @@ function createSquare(max, squaresPerRow) {
         square.style.width = `calc(100% / ${squaresPerRow})`
         square.style.height = square.style.width;
 
-        square.innerHTML = `<span>${max}</span>`;
+        square.innerHTML = max;
 
         return square;
 }
@@ -145,3 +146,11 @@ function printToDom(elementId, str) {
     document.getElementById(elementId).innerHTML = str; 
 }
 
+function lookForBombs(parentElementId, bombList, bombClass) {
+    const squares = document.getElementById(parentElementId).children;
+    for (let i= 0 ; i < bombList.length ; i++ ){
+        if ( bombList.includes(parseInt(squares[i].firstChild.innerHTML)) ){
+            squares[bombList[i]].classList.add(bombClass);
+        }
+    }
+}
