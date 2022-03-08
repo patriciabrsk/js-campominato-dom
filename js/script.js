@@ -30,6 +30,7 @@ playBtn.addEventListener('click', function () {
 function createNewGrid() {
     grid.innerHTML = ''; 
 
+    let isGameOver = false;
     const gameSelection = document.querySelector('.form-select').value;
 
     let squaresPerRow;
@@ -60,14 +61,17 @@ function createNewGrid() {
         const square = createSquare(i, squaresPerRow);
 
         square.addEventListener('click', function(event){
-            if (!bombs.includes(i)) {
-                this.classList.add('clicked');
-                points++;
-                printToDom('points', `Your score is: ${points}`);
-            } else {
-                this.classList.add('clicked-bomb');
-                printToDom('points', `&#10060; Try again! Your score is: ${points}`);
-                event.preventDefault();
+
+            if(!isGameOver) {
+                if (!bombs.includes(i)) {
+                    this.classList.add('clicked');
+                    points++;
+                    printToDom('points', `Your score is: ${points}`);
+                } else {
+                    this.classList.add('clicked-bomb');
+                    printToDom('points', `&#10060; Try again! Your score is: ${points}`);
+                    isGameOver = true;
+                }
             }
         });
         grid.appendChild(square);
