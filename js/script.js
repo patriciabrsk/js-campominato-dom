@@ -55,7 +55,6 @@ function createNewGrid() {
 
     // Create random bombs list
     const bombs = createBombsList(16, squaresNum);
-    console.log(bombs);
 
     for ( let i = 1; i <= squaresNum; i++){
         const square = createSquare(i, squaresPerRow);
@@ -102,7 +101,7 @@ function createSquare(max, squaresPerRow) {
 }
 
 /**
- * Function is called to create a new bomb list in the grid
+ * Function is called to create new bombs and collect them into a list 
  * @param {*} bombs - Number of bombs to generate in the grid
  * @param {*} nSquares - Number of squares in the grid
  * @returns 
@@ -117,11 +116,11 @@ function createBombsList(bombs, nSquares) {
 
 /**
  * This function is used to generate new random unique integers 
- * in the grid each time it is called and collect them into a list
+ * in the grid each time it is called
  * @param {*} numsBlackList - An array list of unique random integers
  * @param {*} minNum - A maximum number of random integers
  * @param {*} maxNum - A minimum number of random integers
- * @returns 
+ * @returns A random integer which is not contained in the blackList of integers
  */
 function randomUniqueInt(numsBlackList, minNum, maxNum) {
     let check = false;
@@ -146,11 +145,20 @@ function printToDom(elementId, str) {
     document.getElementById(elementId).innerHTML = str; 
 }
 
+/**
+ * Function looks for bombs by iterating through 
+ * the bomb list, adding a specific class to each bomb 
+ * found so it is displayed in the grid
+ * @param {*} parentElementId 
+ * @param {*} bombList 
+ * @param {*} bombClass 
+ */
 function lookForBombs(parentElementId, bombList, bombClass) {
     const squares = document.getElementById(parentElementId).children;
-    for (let i= 0 ; i < bombList.length ; i++ ){
-        if ( bombList.includes(parseInt(squares[i].firstChild.innerHTML)) ){
-            squares[bombList[i]].classList.add(bombClass);
+
+    for (let i = 0 ; i < squares.length; i++ ){
+        if (bombList.includes(squares[i].firstChild.innerHTML)) {
+            squares[i].classList.add(bombClass);
         }
     }
 }
